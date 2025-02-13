@@ -1,5 +1,11 @@
+### GET all user
 GET http://localhost:8080/user
 Content-Type: application/json
+
+### GET all user with page
+GET http://localhost:8080/user?page=0&size=2&sort=name,desc
+Content-Type: application/json
+
 
 ### GET user with positive id
 GET http://localhost:8080/user/123

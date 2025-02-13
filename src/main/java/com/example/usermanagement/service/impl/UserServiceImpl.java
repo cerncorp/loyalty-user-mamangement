@@ -26,11 +26,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public List<User> getUsers() {
-        // todo: implement pagination and sorting
-        Pageable firstPageWithTenElements = PageRequest.of(0, 10);
-
-        Page<User> allUsers = userRepository.findAll(firstPageWithTenElements);
+    public List<User> getUsers(Pageable pageable) {
+        Page<User> allUsers = userRepository.findAll(pageable);
         return allUsers.toList();
     }
 

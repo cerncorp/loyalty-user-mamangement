@@ -5,6 +5,7 @@ import com.example.usermanagement.model.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface UserService {
 
 
-    List<User> getUsers();
+    List<User> getUsers(Pageable pageable);
 
     User getUser(@Positive Long id);
 
