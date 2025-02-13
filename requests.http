@@ -1,0 +1,25 @@
+GET http://localhost:8080/user
+Content-Type: application/json
+
+### GET user with positive id
+GET http://localhost:8080/user/123
+Content-Type: application/json
+
+
+### GET user with negative id
+GET http://localhost:8080/user/-123
+Content-Type: application/json
+
+
+### POST user with negative id
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "username": "frankzzz",
+  "age": 15
+}
+
+### DELETE user with negative id
+DELETE http://localhost:8080/user/1
+Content-Type: application/json
