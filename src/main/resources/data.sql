@@ -13,4 +13,3 @@ CREATE TABLE IF NOT EXISTS Users(
     address TEXT,                            -- For 'address'
     email VARCHAR(255) UNIQUE               -- For 'email', ensuring it's unique
 );
--- DELETE FROM Users;
