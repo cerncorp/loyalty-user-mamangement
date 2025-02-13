@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,13 +15,15 @@ import java.util.List;
 public class UserResponseDTO {
     private Long id;
     private String username;
-    private Integer age;
+    private String email;
+    private Date dob;
 
     public static UserResponseDTO fromUser(User user) {
         UserResponseDTO userResponseDTO = new UserResponseDTO(
                 user.getId(),
-                user.getName(),
-                user.getAge()
+                user.getUserName(),
+                user.getEmail(),
+                user.getDob()
         );
         return userResponseDTO;
     }

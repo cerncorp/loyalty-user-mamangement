@@ -9,7 +9,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +27,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<List<UserResponseDTO>> getUsers(Pageable pageable) {
+    public ResponseEntity<List<UserResponseDTO>> getUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+//            @RequestParam(defaultValue = "DESC") String sortDirection
         log.info("getUsers called");
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         List<User> users = userService.getUsers(pageable);
 
         return ResponseEntity.ok(UserResponseDTO.fromUsers(users));

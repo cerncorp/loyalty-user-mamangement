@@ -3,7 +3,11 @@ GET http://localhost:8080/user
 Content-Type: application/json
 
 ### GET all user with page
-GET http://localhost:8080/user?page=0&size=2&sort=name,desc
+GET http://localhost:8080/user?page=0&size=3
+Content-Type: application/json
+
+### GET all user with page 1 size 5
+GET http://localhost:8080/user?page=1&size=5
 Content-Type: application/json
 
 
@@ -22,10 +26,25 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "username": "frankzzz",
-  "age": 15
+  "username": "john.doe",
+  "email": "john.doe234521343@exam1.com",
+  "dob": "2025-02-13T09:20:40.734137300Z"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 201, "Response status is not 200");
+    });
+%}
+### POST user with negative id
+PUT http://localhost:8080/user/2
+Content-Type: application/json
+
+{
+  "username": "lokii",
+  "dob": 22
 }
 
 ### DELETE user with negative id
-DELETE http://localhost:8080/user/1
+DELETE http://localhost:8080/user/15
 Content-Type: application/json
