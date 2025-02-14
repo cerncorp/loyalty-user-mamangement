@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
   "username": "john.doe",
-  "email": "john.doe234521342313@exam1.com",
+  "email": "john.doe23422313@exam1.com",
   "dob": "2025-02-13T09:20:40.734137300Z"
 }
 
@@ -37,14 +37,15 @@ Content-Type: application/json
     });
 %}
 ### POST user with negative id
-PUT http://localhost:8080/user/2
+PUT http://localhost:8080/user/3
 Content-Type: application/json
 
 {
   "username": "lokii",
-  "dob": 22
+  "email": "john.doe23422313@exam1.com",
+  "dob": "2025-01-01T00:00:00.022Z"
 }
 
 ### DELETE user with negative id
-DELETE http://localhost:8080/user/15
+DELETE http://localhost:8080/user/3
 Content-Type: application/json

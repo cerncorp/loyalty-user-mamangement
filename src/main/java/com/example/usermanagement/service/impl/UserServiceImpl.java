@@ -7,6 +7,9 @@ import com.example.usermanagement.repository.UserRepository;
 import com.example.usermanagement.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +29,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+//    @Cacheable(value="userCache", key="{#root.methodName, #pageable, 'all_users'}") // , unless = "#result == null || #result.isEmpty()"
     public List<User> getUsers(Pageable pageable) {
         Page<User> allUsers = userRepository.findAll(pageable);
         return allUsers.toList();
@@ -36,6 +40,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Cacheable(value="userCache", key="{#root.methodName, #id, 'user'}", unless = "#result == null") //, unless = "#result == null"
     public User getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         return user;
@@ -45,8 +50,9 @@ public class UserServiceImpl implements UserService {
      * @param userRequestDTO
      * @return
      */
-    @Transactional
     @Override
+    @Transactional
+    @CachePut(value="userCache", key="{#root.methodName, #result.getId(), 'user'}", unless = "#result == null")
     public User createUser(UserRequestDTO userRequestDTO) {
         User user = UserRequestDTO.toUser(userRequestDTO);
 
@@ -59,6 +65,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
+    @CachePut(value="userCache", key="{#root.methodName, #result.getId(), 'user'}")
     public User updateUser(Long id, UserRequestDTO userRequestDTO) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
@@ -74,6 +82,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
+    @CacheEvict(value="userCache", key="{#root.methodName, #id, 'user'}")
     public void deleteUser(Long id) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         userRepository.delete(foundUser);

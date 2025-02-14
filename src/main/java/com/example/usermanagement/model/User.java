@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -12,7 +14,9 @@ import java.util.Date;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4054162385300685878L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
