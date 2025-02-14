@@ -3,6 +3,7 @@ package com.example.usermanagement.controller;
 import com.example.usermanagement.dto.request.UserRequestDTO;
 import com.example.usermanagement.dto.response.UserResponseDTO;
 import com.example.usermanagement.model.User;
+import com.example.usermanagement.service.BulkUserProducerService;
 import com.example.usermanagement.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +26,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+    @Autowired
+    private BulkUserProducerService bulkUserProducerService;
 
     @GetMapping("/user")
     public ResponseEntity<List<UserResponseDTO>> getUsers(
@@ -77,5 +82,11 @@ public class UserController {
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        bulkUserProducerService.bulkUsersAndPublish(50);
+        return "Message sent successfully";
     }
 }
