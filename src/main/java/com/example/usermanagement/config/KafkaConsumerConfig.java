@@ -24,7 +24,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, UserRequestDTO> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "app_id");
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");

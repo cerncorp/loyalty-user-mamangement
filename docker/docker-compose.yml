@@ -7,8 +7,13 @@ services:
       - "8080:8080"
     depends_on:
       - postgresql_db
+      - kafka
+      - cache
     links:
       - postgresql_db:postgresql_db
+      - kafka:kafka
+      - cache:cache
+
   postgresql_db:
     image: "postgres:15-alpine3.17"
     restart: always
@@ -20,6 +25,7 @@ services:
       POSTGRES_PASSWORD: KAMSciao12@ai
     volumes:
       - db:/var/lib/postgresql/data
+
   cache:
     image: redis:6.2-alpine
     restart: always
