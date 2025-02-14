@@ -1,5 +1,6 @@
 package com.example.usermanagement.job;
 
+import com.example.usermanagement.dto.request.UserRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -30,7 +31,7 @@ public class KafkaConsumerService {
 //    }
 
     @KafkaListener(topics = "bulk-create-user-topic", groupId = "group_id")
-    public void consume(String message) {
+    public void consume(UserRequestDTO message) {
         log.info("Message received: " + message);
     }
 }

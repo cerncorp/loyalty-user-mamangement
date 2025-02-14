@@ -5,6 +5,7 @@ import com.example.usermanagement.model.User;
 import com.example.usermanagement.service.BulkUserProducerService;
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class BulkUserProducerServiceImpl implements BulkUserProducerService {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, UserRequestDTO> kafkaTemplate;
 
-    public BulkUserProducerServiceImpl(KafkaTemplate<String, String> kafkaTemplate) {
+    public BulkUserProducerServiceImpl(KafkaTemplate<String, UserRequestDTO> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -36,7 +37,8 @@ public class BulkUserProducerServiceImpl implements BulkUserProducerService {
                             faker.date().past(30, TimeUnit.DAYS)
                     );
 
-                    kafkaTemplate.send("bulk-create-user-topic", "test-value-" + tmp);
+//                    kafkaTemplate.send("bulk-create-user-topic", "test-value-" + tmp);
+                    kafkaTemplate.send("bulk-create-user-topic", userRequestDTO);
                 });
     }
 }
