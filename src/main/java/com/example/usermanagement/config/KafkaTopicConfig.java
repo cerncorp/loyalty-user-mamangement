@@ -18,6 +18,12 @@ public class KafkaTopicConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
+    @Value(value = "${kafka.topic.user-bulk-create.partition}")
+    private Integer bulkCreateUserTopicPartition;
+
+    @Value(value = "${kafka.topic.user-bulk-create}")
+    private String bulkCreateUserTopic;
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -27,8 +33,8 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic bulkCreateUserTopic() {
-        return TopicBuilder.name("bulk-create-user-topic")
-                .partitions(2)
+        return TopicBuilder.name(bulkCreateUserTopic)
+                .partitions(bulkCreateUserTopicPartition)
                 .build();
     }
 }

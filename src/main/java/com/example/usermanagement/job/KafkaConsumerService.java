@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumerService {
 
-    @KafkaListener(topics = "bulk-create-user-topic", groupId = "group_id")
+    @KafkaListener(
+            topics = "${kafka.topic.user-bulk-create}",
+            groupId = "group_id",
+            concurrency = "${kafka.topic.user-bulk-create.consumer.concurrency}")
     public void consume(UserRequestDTO message) {
         log.info("Message received: " + message);
     }

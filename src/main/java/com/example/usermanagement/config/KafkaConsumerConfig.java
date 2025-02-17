@@ -21,13 +21,20 @@ public class KafkaConsumerConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
+    @Value(value = "${kafka.topic.user-bulk-create.consumer.group-id}")
+    private String userBulkCreateConsumerGroupId;
+
+    @Value(value = "${kafka.topic.user-bulk-create.app-id}")
+    private String userBulkCreateAppId;
+
+
     // guide: consumer configuration with value type: UserDeserializer
     @Bean
     public ConsumerFactory<String, UserRequestDTO> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        configProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "app_id");
-        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+        configProps.put(ConsumerConfig.CLIENT_ID_CONFIG, userBulkCreateAppId);
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, userBulkCreateConsumerGroupId);
         configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.example.usermanagement.util.kafka.UserDeserializer");
