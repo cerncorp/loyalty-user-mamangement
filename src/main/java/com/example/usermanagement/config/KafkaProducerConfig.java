@@ -19,6 +19,7 @@ public class KafkaProducerConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
+    // guide: producer Factory and Configuration with value type: UserSerializer of UserRequestDTO
     @Bean
     public ProducerFactory<String, UserRequestDTO> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();

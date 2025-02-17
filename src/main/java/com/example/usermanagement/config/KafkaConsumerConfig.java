@@ -21,6 +21,7 @@ public class KafkaConsumerConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
+    // guide: consumer configuration with value type: UserDeserializer
     @Bean
     public ConsumerFactory<String, UserRequestDTO> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();
@@ -34,6 +35,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(configProps);
     }
 
+    // guide: consumer factory for type: UserRequestDTO
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, UserRequestDTO> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, UserRequestDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
