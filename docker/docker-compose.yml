@@ -39,6 +39,8 @@ services:
     image: 'bitnami/kafka:latest'
     ports:
       - '9094:9094' #1
+    volumes:
+      - "kafka_data:/bitnami"
     environment:
       - KAFKA_CFG_NODE_ID=0
       - KAFKA_CFG_CONTROLLER_BROKER_ID=0
@@ -63,4 +65,6 @@ volumes:
   db:
     driver: local
   cache:
+    driver: local
+  kafka_data:
     driver: local
