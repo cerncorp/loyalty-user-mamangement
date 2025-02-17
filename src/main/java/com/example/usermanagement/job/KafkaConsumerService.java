@@ -12,7 +12,7 @@ public class KafkaConsumerService {
 
     @KafkaListener(
             topics = "${kafka.topic.user-bulk-create}",
-            groupId = "group_id",
+            groupId = "${kafka.topic.user-bulk-create.consumer.group-id}",
             concurrency = "${kafka.topic.user-bulk-create.consumer.concurrency}")
     public void consume(UserRequestDTO message) {
         log.info("Message received: " + message);
