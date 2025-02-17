@@ -6,6 +6,7 @@ import com.example.usermanagement.model.User;
 import com.example.usermanagement.service.BulkUserProducerService;
 import com.example.usermanagement.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
@@ -84,9 +85,9 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/send")
-    public String sendMessage(@RequestParam String message) {
-        bulkUserProducerService.bulkUsersAndPublish(50);
-        return "Message sent successfully";
+    @GetMapping("/user/bulk")
+    public ResponseEntity<UserResponseDTO> sendMessage(@RequestParam @Valid @Max(10000) Integer number) {
+        bulkUserProducerService.bulkUsersAndPublish(number);
+        return ResponseEntity.noContent().build();
     }
 }
