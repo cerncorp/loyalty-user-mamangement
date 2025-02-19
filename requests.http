@@ -52,20 +52,26 @@ Content-Type: application/json
 
 
 
-### GET to send bulk create USER
+### GET to send bulk Kafka create USER
 GET http://localhost:8080/user/kafka/bulk?number=12
 Content-Type: application/json
 
 
-### GET to send bulk create USER : 1000
+### GET to send bulk Kafka create USER : 1000
 GET http://localhost:8080/user/kafka/bulk?number=12
 Content-Type: application/json
 
-### GET to send bulk create USER : 10000
+### GET to send bulk Kafka create USER : 10000
 GET http://localhost:8080/user/kafka/bulk?number=10000
 Content-Type: application/json
 
 
 ### GET to send bulk SQS create USER
 GET http://localhost:8080/user/sqs/bulk?number=9
+Content-Type: application/json
+
+
+
+### GET user with positive id
+GET http://localhost:8080/user/username/monty.bogan
 Content-Type: application/json

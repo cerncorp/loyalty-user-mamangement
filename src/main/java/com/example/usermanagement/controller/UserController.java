@@ -7,6 +7,7 @@ import com.example.usermanagement.service.BulkUserProducerService;
 import com.example.usermanagement.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,13 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable @Positive Long id) {
         log.info("getUser called with id {}", id);
         User user = userService.getUser(id);
+        return ResponseEntity.ok(UserResponseDTO.fromUser(user));
+    }
+
+    @GetMapping("/user/username/{username}")
+    public ResponseEntity<UserResponseDTO> getUserByName(@PathVariable @NotBlank String username) {
+        log.info("getUserByName called with username {}", username);
+        User user = userService.getUserByName(username);
         return ResponseEntity.ok(UserResponseDTO.fromUser(user));
     }
 

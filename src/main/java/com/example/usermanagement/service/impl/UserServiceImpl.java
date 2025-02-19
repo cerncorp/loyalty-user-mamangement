@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    @Cacheable(value="userCache", key="#root.methodName + #id + 'user'", unless = "#result == null") //, unless = "#result == null"
+    @Cacheable(value="userCache", key="#root.methodName + '_' + #id + '_' + 'id'", unless = "#result == null") //, unless = "#result == null"
     public User getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         return user;
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CachePut(value="userCache", key="#root.methodName + #result.getId() + 'user'", unless = "#result == null")
+    @CachePut(value="userCache", key="#root.methodName + '_'  + #result.getId() + '_'  + 'id'", unless = "#result == null")
     public User createUser(UserRequestDTO userRequestDTO) {
         User user = UserRequestDTO.toUser(userRequestDTO);
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CachePut(value="userCache", key="#root.methodName + #result.getId() + 'user'")
+    @CachePut(value="userCache", key="#root.methodName + '_'  + #result.getId() + '_'  + 'id'")
     public User updateUser(Long id, UserRequestDTO userRequestDTO) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
@@ -82,9 +82,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CacheEvict(value="userCache", key="#root.methodName + #id + 'user'")
+    @CacheEvict(value="userCache", key="#root.methodName + '_'  + #id + '_'  + 'id'")
     public void deleteUser(Long id) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         userRepository.delete(foundUser);
+    }
+
+    /**
+     * @param username
+     * @return
+     */
+    @Override
+    @Cacheable(value="userCache", key="#root.methodName + '_'  + #username + '_'  + 'username'", unless = "#result == null")
+    public User getUserByName(String username) {
+        User user = userRepository.findByUserName(username).orElseThrow(() -> new ResourceNotFoundException("User with username " + username + " not found"));
+        return user;
     }
 }
