@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <!--SEQUENCES-->
+<!--    <changeSet id="create_sequence_authorities_seq" author="kanezi">-->
+<!--        <sqlFile path="db/schema/sequences/authorities_seq.sql.bak"/>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create_sequence_user_authorities_seq" author="kanezi">-->
+<!--        <sqlFile path="db/schema/sequences/user_authorities_seq.sql.bak"/>-->
+<!--    </changeSet>-->
+
+    <!--TABLES-->
+<!--    <changeSet id="create_table_authorities" author="kanezi">-->
+<!--        <sqlFile path="db/schema/tables/authorities.sql.bak"/>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create_table_users" author="kanezi">-->
+<!--        <sqlFile path="db/schema/tables/users.sql.bak"/>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create_table_user_authorities" author="kanezi">-->
+<!--        <sqlFile path="db/schema/tables/user_authorities.sql.bak"/>-->
+<!--    </changeSet>-->
+
+
+    <changeSet id="create_table_users" author="hung.nguyen">
+        <sqlFile path="db/schema/tables/users.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

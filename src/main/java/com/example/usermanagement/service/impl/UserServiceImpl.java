@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    @Cacheable(value="userCache", key="#root.methodName + '_' + #id + '_' + 'id'", unless = "#result == null") //, unless = "#result == null"
+    @Cacheable(value="userCache", key="#root.methodName + ':' + #id + ':' + 'id'", unless = "#result == null") //, unless = "#result == null"
     public User getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         return user;
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CachePut(value="userCache", key="#root.methodName + '_'  + #result.getId() + '_'  + 'id'", unless = "#result == null")
+    @CachePut(value="userCache", key="#root.methodName + ':'  + #result.getId() + ':'  + 'id'", unless = "#result == null")
     public User createUser(UserRequestDTO userRequestDTO) {
         User user = UserRequestDTO.toUser(userRequestDTO);
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CachePut(value="userCache", key="#root.methodName + '_'  + #result.getId() + '_'  + 'id'")
+    @CachePut(value="userCache", key="#root.methodName + ':'  + #result.getId() + ':'  + 'id'")
     public User updateUser(Long id, UserRequestDTO userRequestDTO) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    @CacheEvict(value="userCache", key="#root.methodName + '_'  + #id + '_'  + 'id'")
+    @CacheEvict(value="userCache", key="#root.methodName + ':'  + #id + ':'  + 'id'")
     public void deleteUser(Long id) {
         User foundUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         userRepository.delete(foundUser);
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    @Cacheable(value="userCache", key="#root.methodName + '_'  + #username + '_'  + 'username'", unless = "#result == null")
+    @Cacheable(value="userCache", key="#root.methodName + ':'  + #username + ':'  + 'username'", unless = "#result == null")
     public User getUserByName(String username) {
         User user = userRepository.findByUserName(username).orElseThrow(() -> new ResourceNotFoundException("User with username " + username + " not found"));
         return user;
