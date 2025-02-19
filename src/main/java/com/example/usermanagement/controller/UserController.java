@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -85,9 +84,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/user/bulk")
-    public ResponseEntity<UserResponseDTO> sendMessage(@RequestParam @Valid @Max(10000) Integer number) {
-        bulkUserProducerService.bulkUsersAndPublish(number);
+    @GetMapping("/user/kafka/bulk")
+    public ResponseEntity<UserResponseDTO> sendKafkaMessage(@RequestParam @Valid @Max(10000) Integer number) {
+        bulkUserProducerService.bulkUsersAndKafkaPublish(number);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user/sqs/bulk")
+    public ResponseEntity<UserResponseDTO> sendSQSMessage(@RequestParam @Valid @Max(10) Integer number) {
+        bulkUserProducerService.bulkUsersAndSQSPublish(number);
         return ResponseEntity.noContent().build();
     }
 }
