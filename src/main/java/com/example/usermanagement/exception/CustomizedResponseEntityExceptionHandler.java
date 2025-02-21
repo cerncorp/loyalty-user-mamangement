@@ -27,13 +27,4 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public final ResponseEntity<ExceptionResponse> handlerMethodArgumentValidExceptions(MethodArgumentNotValidException exception, WebRequest request) {
-//        var errors = exception.getFieldErrors().stream().map(fieldError -> "Field: " + fieldError.getField() + " Error: " + fieldError.getDefaultMessage()).toList();
-//        ExceptionResponse exceptionResponse = new ExceptionResponse(Instant.now(), errors.toString(), request.getDescription(false));
-//
-//        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-//    }
-
-
 }
